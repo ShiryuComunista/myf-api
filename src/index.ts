@@ -1,7 +1,7 @@
 import express, { Request, Response, Application } from "express";
 import mongoose, { Document, Schema } from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv"; // Import dotenv
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ const uri = process.env.MONGODB_URI;
 
 if (!uri) {
   console.error("MongoDB URI not found in environment variables.");
-  process.exit(1); // Exit the app if the URI is not set
+  process.exit(1);
 }
 
 mongoose
@@ -32,7 +32,6 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Tipos para os dados
 interface AddressType {
   address: string;
   city: string;
@@ -60,7 +59,7 @@ interface DeliveryDocument extends Document {
   delivery: DeliveryType;
   address: AddressType;
   payment: PaymentType;
-  shortId: string; // Adicionado para o ID curto
+  shortId: string;
 }
 
 const deliverySchema = new Schema<DeliveryDocument>({
@@ -84,7 +83,7 @@ const deliverySchema = new Schema<DeliveryDocument>({
     attachment: { type: Schema.Types.Mixed, required: false },
     fileName: { type: String, required: true },
   },
-  shortId: { type: String, required: true }, // Adicionado
+  shortId: { type: String, required: true },
 });
 
 const Delivery = mongoose.model<DeliveryDocument>("Delivery", deliverySchema);
